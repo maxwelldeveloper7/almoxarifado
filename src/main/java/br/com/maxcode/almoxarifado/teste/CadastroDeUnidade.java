@@ -11,6 +11,7 @@ public class CadastroDeUnidade {
 
 		EntityManager em = JPAUtil.getEntityManager();
 		UnidadeDao unidadeDao = new UnidadeDao(em);
+		
 	}
 
 }
