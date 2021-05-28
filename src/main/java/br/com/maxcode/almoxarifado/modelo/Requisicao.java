@@ -1,6 +1,8 @@
 package br.com.maxcode.almoxarifado.modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,8 @@ public class Requisicao {
 	private LocalDate data;
 	@ManyToOne
 	private Requerente requerente;
+	@OneToMany(mappedBy="requisicao")
+	private List<ItemRequisicao> itens = new ArrayList<>();
 	
 	public Requisicao() {
 		
@@ -60,5 +65,10 @@ public class Requisicao {
 	@Override
 	public String toString() {
 		return this.id+"- Data:"+this.data+" - Requerente: "+this.requerente.getSetor().getNome();
+	}
+	
+	public void adicionaItem(ItemRequisicao item) {
+		item.setRequisicao(this);
+		this.itens.add(item);
 	}
 }
